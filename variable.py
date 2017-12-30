@@ -13,8 +13,11 @@ class Variable:
 		return self.__str__();
 	def getOutput(self):
 		return self
-	def takeInput(self, value):
-		self.value = np.reshape(value, self.value.shape);
+	def takeInput(self, value, reshape=True):
+		if type(self.value).__module__ == np.__name__ and reshape:
+			self.value = np.reshape(value, self.value.shape);
+		else:	
+			self.value = value
 		self.gradient = np.zeros_like(self.value, dtype=np.float)
 	def applyGradient(self, step_size):
 		self.value = self.value + self.gradient * step_size

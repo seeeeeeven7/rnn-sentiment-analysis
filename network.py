@@ -1,4 +1,5 @@
 import variable
+import numpy as np
 
 class Network:
 	def __init__(self):
@@ -6,6 +7,7 @@ class Network:
 		self.cells = []
 		self.logForwardPropgation = False
 		self.logBackwardPropagation = False
+		self.logApplyGradient = False
 	def getVariablesAmount(self):
 		return len(self.variables);
 	def getCellsAmount(self):
@@ -29,4 +31,6 @@ class Network:
 			cell.backwardPropagation();
 	def applyGradient(self, step_size):
 		for variable in self.variables:
+			if self.logApplyGradient:
+				print(np.sum(variable.value), np.sum(variable.gradient))
 			variable.applyGradient(step_size);
